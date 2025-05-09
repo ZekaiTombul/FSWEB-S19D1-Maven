@@ -101,7 +101,7 @@ class ApplicationPropertiesAndControllerTests {
     @Test
     void testGetFruitsByName() throws Exception {
         given(fruitService.searchByName("Apple")).willReturn(List.of(sampleFruit));
-        mockMvc.perform(get("/fruit/name/{name}", "Apple"))
+        mockMvc.perform(post("/fruit/name/{name}", "Apple"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
                 .andExpect(jsonPath("$[0].name", is("Apple")));
@@ -114,7 +114,7 @@ class ApplicationPropertiesAndControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(sampleFruit)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name", is("Apple")));
+                .andExpect(jsonPath("$.data.name", is("Apple")));
     }
 
     @Test
